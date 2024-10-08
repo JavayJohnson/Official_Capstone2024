@@ -20,5 +20,27 @@ const createNote = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+const updateNote =  async (req, res) => {
+const noteID=req.params.id;
+const content=req.body.content
+const title=req.body.title
+const date=req.body.date
+const updatedNote = Note.findByIdAndUpdate(noteID,{
+    title:title,
+    content:content,
+    date:date,
 
-module.exports = { getNotes, createNote };
+})
+res.json({updatedNote:updatedNote})
+}
+const deleteNote =  async (req, res) => {
+    const noteID=req.params.id;
+    const deletedNote = Note.findByIdAndDelete(noteID)
+    res.status(200).json({Success:true})
+}
+
+
+
+
+module.exports = { getNotes, createNote, updateNote, deleteNote };
+
